@@ -1,3 +1,10 @@
 out/
 .vs/
 build/
+CMakeFiles/
+*.vcxproj
+*.vcxproj.filters
+CMakeCache.txt
+*.sln
+cmake_install.cmake
+

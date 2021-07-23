@@ -1,6 +1,6 @@
-[submodule ".\\LibRenderer\\Dependencies\\spdlog"]
-	path = .\\LibRenderer\\Dependencies\\spdlog
+[submodule "LibRenderer/Dependencies/spdlog"]
+	path = LibRenderer/Dependencies/spdlog
 	url = https://github.com/gabime/spdlog
-[submodule ".\\LibRenderer\\Dependencies\\glfw"]
-	path = .\\LibRenderer\\Dependencies\\glfw
+[submodule "LibRenderer/Dependencies/glfw"]
+	path = LibRenderer/Dependencies/glfw
 	url = https://github.com/glfw/glfw
