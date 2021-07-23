@@ -9,18 +9,20 @@ namespace Lumen
 	{
 	public:
 		Console(const std::string &context_name);
-		~Console();
 
 		void Info(const std::string &output);
+		void Warn(const std::string &output);
+		void Error(const std::string &output);
+		void Crit(const std::string &output);
 
 	private:
-		Core::Console *m_context;
+		Core::Console m_context;
 	};
 
-	struct LUMEN_API Application
+	class Application
 	{
 
 	private:
-		Core::Application *m_context;
+		Core::Application m_context;
 	};
 }

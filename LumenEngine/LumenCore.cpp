@@ -5,11 +5,12 @@
 using namespace Lumen::Core;
 
 Console::Console(const char *context_name)
-	: lib_context(new LoggingContext(context_name)) {}
+	: lib_context(new LoggingContext(context_name))
+{}
 
-void Console::Init()
+Console::~Console()
 {
-	LoggingContext::LogInit();
+	delete lib_context;
 }
 
 void Console::Info(const char *message)

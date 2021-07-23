@@ -20,9 +20,9 @@ namespace Lumen
 		struct LUMEN_API Console
 		{
 		public:
-			static void Init();
-
 			Console(const char *context_name);
+			Console(const Console &console) = delete;
+			~Console();
 			void Info(const char *message);
 			void Warn(const char *message);
 			void Error(const char *message);
