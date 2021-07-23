@@ -1,16 +1,10 @@
 #include <iostream>
-#include "RenderEngine.h"
+#include "Lumen.h"
 
 int main()
 {
-	LibRenderer::ApplicationContext *context
-		= LibRenderer::ApplicationContext::CreateContext(720, 480, "My Engine 1");
+	Lumen::Console console("TESTING");
+	console.Info("Hello, world!");
 
-	while (context->PollContent())
-	{
-		context->PollEvents();
-	}
-
-	LibRenderer::ApplicationContext::DeleteContext(context);
 	return 0;
 }

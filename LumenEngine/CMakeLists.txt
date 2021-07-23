@@ -7,17 +7,20 @@ set(INCLUDE_DIRS "Dependencies/spdlog/include")
 add_subdirectory(Dependencies/spdlog)
 add_subdirectory(Dependencies/glfw)
 
+add_library(LumenAPI STATIC
+	"Lumen.h"
+	"Lumen.cpp")
+
 add_library(
 	LumenEngine SHARED
-	"RenderEngine.cpp"
-	"RenderEngine.h"
-	"LoggingContext.cpp"
 	"LoggingContext.h"
-	"VertexBuffer.h")
+	"LoggingContext.cpp"
+	"LumenCore.h"
+	"LumenCore.cpp")
 add_dependencies(LumenEngine
 	spdlog::spdlog
 	glfw)
-target_compile_definitions(LumenEngine PRIVATE RND_DLL_BUILD)
+target_compile_definitions(LumenEngine PRIVATE LUMEN_DLL_BUILD)
 target_include_directories(LumenEngine PRIVATE
 	"Dependencies/spdlog/include"
 	"Dependencies/glfw/include")

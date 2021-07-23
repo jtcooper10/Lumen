@@ -7,57 +7,46 @@
 #include "spdlog/spdlog.h"
 #include "spdlog/sinks/stdout_color_sinks.h"
 
-namespace LibRenderer
+namespace Lumen
 {
-	class LoggingContext
+	namespace Core
 	{
-	public:
-		enum class LogLevel
+		class LoggingContext
 		{
-			TRACE = 0,
-			INFO,
-			WARN,
-			ERR,
-			CRIT
+		public:
+			const std::string context_name;
+
+			enum class LogLevel
+			{
+				TRACE = 0,
+				INFO,
+				WARN,
+				ERR,
+				CRIT
+			};
+
+			LoggingContext(const char *const name);
+
+			static void LogInit();
+			static void SetLogLevel(LogLevel log_level);
+
+			inline static std::shared_ptr<spdlog::logger> Core() { return s_core_logger; }
+			inline static void CoreInfo(const std::string &output) { LoggingContext::Core()->info(output); }
+			inline static void CoreWarn(const std::string &output) { LoggingContext::Core()->warn(output); }
+			inline static void CoreError(const std::string &output) { LoggingContext::Core()->error(output); }
+			inline static void CoreCrit(const std::string &output) { LoggingContext::Core()->critical(output); }
+
+			inline std::shared_ptr<spdlog::logger> Client() { return m_logger; }
+			inline void LogInfo(const std::string &output) { Client()->info(output); }
+			inline void LogWarn(const std::string &output) { Client()->warn(output); }
+			inline void LogError(const std::string &output) { Client()->error(output); }
+			inline void LogCrit(const std::string &output) { Client()->critical(output); }
+
+		private:
+			static std::shared_ptr<spdlog::logger> s_core_logger;
+			std::shared_ptr<spdlog::logger> m_logger;
 		};
 
-		static void LogInit();
-		static void SetLogLevel(LogLevel log_level);
-
-		inline static void LogInfo(const std::string& output)
-		{
-			LoggingContext::Core()->info(output);
-		}
-
-		inline static void LogWarn(const std::string& output)
-		{
-			LoggingContext::Core()->warn(output);
-		}
-
-		inline static void LogError(const std::string& output)
-		{
-			LoggingContext::Core()->error(output);
-		}
-
-		inline static void LogCritical(const std::string& output)
-		{
-			LoggingContext::Core()->critical(output);
-		}
-
-		inline static std::shared_ptr<spdlog::logger> Core()
-		{
-			return s_CoreLogger;
-		}
-
-		inline static std::shared_ptr<spdlog::logger> Client()
-		{
-			return s_ClientLogger;
-		}
-
-	private:
-		static std::shared_ptr<spdlog::logger> s_CoreLogger;
-		static std::shared_ptr<spdlog::logger> s_ClientLogger;
-	};
-
-	using LogLevel = LoggingContext::LogLevel;
+		using LogLevel = LoggingContext::LogLevel;
+	}
 }
