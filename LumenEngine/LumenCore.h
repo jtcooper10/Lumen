@@ -24,5 +24,18 @@ namespace Lumen
 			void LUMEN_API liblmConsole_LogError(const LoggingContext *context, const char *output);
 			void LUMEN_API liblmConsole_LogCrit(const LoggingContext *context, const char *output);
 		}
+
+
+		class ApplicationContext;
+
+		extern "C"
+		{
+			ApplicationContext LUMEN_API *liblmApplication_Create(
+				unsigned int window_width,
+				unsigned int window_height,
+				const char *window_title);
+			void LUMEN_API liblmApplication_Destroy(ApplicationContext **context);
+			int LUMEN_API liblmApplication_Draw(ApplicationContext *context);
+		}
 	}
 }

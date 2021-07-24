@@ -11,6 +11,10 @@ namespace Lumen
 	{
 		class ApplicationContext
 		{
+		public:
+			ApplicationContext(GLFWwindow *window);
+			bool Draw();
+
 		private:
 			GLFWwindow *m_window;
 		};
