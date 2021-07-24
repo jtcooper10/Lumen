@@ -13,31 +13,18 @@ namespace Lumen
 {
 	namespace Core
 	{
-		// Forward declaration of internal library classes
-		class LoggingContext;
-		class ApplicationContext;
-
-		struct LUMEN_API Console
+		struct LUMEN_API ILoggingContext
 		{
-		public:
-			Console(const char *context_name);
-			Console(const Console &console) = delete;
-			~Console();
-			void Info(const char *message);
-			void Warn(const char *message);
-			void Error(const char *message);
-			void Crit(const char *message);
-
-		private:
-			LoggingContext *lib_context;
+			virtual void LogInfo(const char *message) = 0;
+			virtual void LogWarn(const char *message) = 0;
+			virtual void LogError(const char *message) = 0;
+			virtual void LogCrit(const char *message) = 0;
 		};
 
-		struct LUMEN_API Application
+		extern "C"
 		{
-		public:
-
-		private:
-			ApplicationContext *lib_context;
-		};
+			ILoggingContext LUMEN_API *CreateLoggingContext(const char *context_name);
+			void LUMEN_API DestroyLoggingContext(ILoggingContext *context);
+		}
 	}
 }

@@ -6,6 +6,7 @@
 
 using namespace Lumen::Core;
 
+
 std::shared_ptr<spdlog::logger> LoggingContext::s_core_logger;
 
 void LoggingContext::LogInit()
@@ -38,9 +39,29 @@ void LoggingContext::SetLogLevel(LoggingContext::LogLevel log_level)
 	spdlog::set_level(s_level);
 }
 
-LoggingContext::LoggingContext(const char *const name)
+LoggingContext::LoggingContext(const std::string &name)
 	: context_name(name)
 {
 	LoggingContext::LogInit();
 	m_logger = spdlog::stdout_color_mt(context_name);
+}
+
+void LoggingContext::LogInfo(const char *output)
+{
+	Client()->info(output);
+}
+
+void LoggingContext::LogWarn(const char *output)
+{
+	Client()->warn(output);
+}
+
+void LoggingContext::LogError(const char *output)
+{
+	Client()->error(output);
+}
+
+void LoggingContext::LogCrit(const char *output)
+{
+	Client()->critical(output);
 }

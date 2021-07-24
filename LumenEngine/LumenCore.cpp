@@ -1,34 +1,17 @@
 #include "LumenCore.h"
 #include "LoggingContext.h"
+#include "ApplicationContext.h"
 #include <string>
 
 using namespace Lumen::Core;
 
-Console::Console(const char *context_name)
-	: lib_context(new LoggingContext(context_name))
-{}
 
-Console::~Console()
+ILoggingContext *Lumen::Core::CreateLoggingContext(const char *context_name)
 {
-	delete lib_context;
+	return new LoggingContext(std::string(context_name));
 }
 
-void Console::Info(const char *message)
+void Lumen::Core::DestroyLoggingContext(ILoggingContext *context)
 {
-	lib_context->LogInfo(std::string(message));
-}
-
-void Console::Warn(const char *message)
-{
-	lib_context->LogWarn(std::string(message));
-}
-
-void Console::Error(const char *message)
-{
-	lib_context->LogError(std::string(message));
-}
-
-void Console::Crit(const char *message)
-{
-	lib_context->LogCrit(std::string(message));
+	delete context;
 }

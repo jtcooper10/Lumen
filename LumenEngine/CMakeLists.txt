@@ -16,7 +16,9 @@ add_library(
 	"LoggingContext.h"
 	"LoggingContext.cpp"
 	"LumenCore.h"
-	"LumenCore.cpp")
+	"LumenCore.cpp"
+	"ApplicationContext.h"
+	"ApplicationContext.cpp")
 add_dependencies(LumenEngine
 	spdlog::spdlog
 	glfw)

@@ -3,15 +3,17 @@
 
 #pragma once
 
-#include <memory>
 #include "spdlog/spdlog.h"
 #include "spdlog/sinks/stdout_color_sinks.h"
+#include <memory>
+
+#include "LumenCore.h"
 
 namespace Lumen
 {
 	namespace Core
 	{
-		class LoggingContext
+		class LoggingContext : public ILoggingContext
 		{
 		public:
 			const std::string context_name;
@@ -25,7 +27,7 @@ namespace Lumen
 				CRIT
 			};
 
-			LoggingContext(const char *const name);
+			LoggingContext(const std::string &context_name);
 
 			static void LogInit();
 			static void SetLogLevel(LogLevel log_level);
@@ -37,16 +39,14 @@ namespace Lumen
 			inline static void CoreCrit(const std::string &output) { LoggingContext::Core()->critical(output); }
 
 			inline std::shared_ptr<spdlog::logger> Client() { return m_logger; }
-			inline void LogInfo(const std::string &output) { Client()->info(output); }
-			inline void LogWarn(const std::string &output) { Client()->warn(output); }
-			inline void LogError(const std::string &output) { Client()->error(output); }
-			inline void LogCrit(const std::string &output) { Client()->critical(output); }
+			void LogInfo(const char *output) override;
+			void LogWarn(const char *output) override;
+			void LogError(const char *output) override;
+			void LogCrit(const char *output) override;
 
 		private:
 			static std::shared_ptr<spdlog::logger> s_core_logger;
 			std::shared_ptr<spdlog::logger> m_logger;
 		};
-
-		using LogLevel = LoggingContext::LogLevel;
 	}
 }
