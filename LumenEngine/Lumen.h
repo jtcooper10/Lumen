@@ -49,5 +49,6 @@ namespace Lumen
 
 	private:
 		Core::ApplicationContext *m_context;
+		Core::Geometry *m_geometry;
 	};
 }

@@ -103,6 +103,8 @@ Geometry *Lumen::Core::liblmApplication_CreateGeometry(ApplicationContext *conte
 		   0.5f, -0.5f, 0.0f },
 		{ 0, 1, 2, 0, 2, 3 }
 	};
+	geometry->vertex_id = vertex_id;
+	geometry->index_id = index_id;
 	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 12, &geometry->data, GL_STATIC_DRAW);
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, nullptr);

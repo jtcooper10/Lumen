@@ -31,6 +31,8 @@ bool ApplicationContext::Draw(Geometry *geometry)
 		return false;
 	}
 
+	glfwPollEvents();
+
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	glBindBuffer(GL_ARRAY_BUFFER, geometry->vertex_id);

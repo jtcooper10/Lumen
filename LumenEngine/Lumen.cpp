@@ -16,15 +16,17 @@ Lumen::Application::Application(
 	const std::string &window_title)
 	: m_context(Lumen::Core::liblmApplication_Create(
 			window_width, window_height, window_title.c_str())),
+	  m_geometry(Lumen::Core::liblmApplication_CreateGeometry(m_context)),
 	  console(window_title)
 { }
 
 Lumen::Application::~Application()
 {
+	Lumen::Core::liblmApplication_DestroyGeometry(m_context, &m_geometry);
 	Lumen::Core::liblmApplication_Destroy(&m_context);
 }
 
 bool Lumen::Application::Draw()
 {
-	return Lumen::Core::liblmApplication_Draw(m_context);
+	return Lumen::Core::liblmApplication_DrawGeometry(m_context, m_geometry);
 }
