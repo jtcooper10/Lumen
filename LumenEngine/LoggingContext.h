@@ -13,7 +13,7 @@ namespace Lumen
 {
 	namespace Core
 	{
-		class LoggingContext : public ILoggingContext
+		class LoggingContext
 		{
 		public:
 			const std::string context_name;
@@ -38,11 +38,11 @@ namespace Lumen
 			inline static void CoreError(const std::string &output) { LoggingContext::Core()->error(output); }
 			inline static void CoreCrit(const std::string &output) { LoggingContext::Core()->critical(output); }
 
-			inline std::shared_ptr<spdlog::logger> Client() { return m_logger; }
-			void LogInfo(const char *output) override;
-			void LogWarn(const char *output) override;
-			void LogError(const char *output) override;
-			void LogCrit(const char *output) override;
+			inline std::shared_ptr<spdlog::logger> Client() const { return m_logger; }
+			void LogInfo(const std::string &output) const;
+			void LogWarn(const std::string &output) const;
+			void LogError(const std::string &output) const;
+			void LogCrit(const std::string &output) const;
 
 		private:
 			static std::shared_ptr<spdlog::logger> s_core_logger;

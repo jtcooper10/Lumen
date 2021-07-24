@@ -46,22 +46,22 @@ LoggingContext::LoggingContext(const std::string &name)
 	m_logger = spdlog::stdout_color_mt(context_name);
 }
 
-void LoggingContext::LogInfo(const char *output)
+void LoggingContext::LogInfo(const std::string &output) const
 {
 	Client()->info(output);
 }
 
-void LoggingContext::LogWarn(const char *output)
+void LoggingContext::LogWarn(const std::string &output) const
 {
 	Client()->warn(output);
 }
 
-void LoggingContext::LogError(const char *output)
+void LoggingContext::LogError(const std::string &output) const
 {
 	Client()->error(output);
 }
 
-void LoggingContext::LogCrit(const char *output)
+void LoggingContext::LogCrit(const std::string &output) const
 {
 	Client()->critical(output);
 }

@@ -13,18 +13,16 @@ namespace Lumen
 {
 	namespace Core
 	{
-		struct LUMEN_API ILoggingContext
-		{
-			virtual void LogInfo(const char *message) = 0;
-			virtual void LogWarn(const char *message) = 0;
-			virtual void LogError(const char *message) = 0;
-			virtual void LogCrit(const char *message) = 0;
-		};
+		class LoggingContext;
 
 		extern "C"
 		{
-			ILoggingContext LUMEN_API *CreateLoggingContext(const char *context_name);
-			void LUMEN_API DestroyLoggingContext(ILoggingContext *context);
+			LoggingContext LUMEN_API *liblmConsole_Create(const char *context_name);
+			void LUMEN_API liblmConsole_Destroy(LoggingContext **context);
+			void LUMEN_API liblmConsole_LogInfo(const LoggingContext *context, const char *output);
+			void LUMEN_API liblmConsole_LogWarn(const LoggingContext *context, const char *output);
+			void LUMEN_API liblmConsole_LogError(const LoggingContext *context, const char *output);
+			void LUMEN_API liblmConsole_LogCrit(const LoggingContext *context, const char *output);
 		}
 	}
 }

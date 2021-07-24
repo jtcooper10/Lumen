@@ -10,12 +10,25 @@ namespace Lumen
 	{
 	public:
 		Console(const std::string &context_name);
-		inline void Info(const std::string &output) { m_context->LogInfo(output.c_str()); }
-		inline void Warn(const std::string &output) { m_context->LogWarn(output.c_str()); }
-		inline void Error(const std::string &output) { m_context->LogError(output.c_str()); }
-		inline void Crit(const std::string &output) { m_context->LogCrit(output.c_str()); }
+		Console(const Console &console) = delete;
+		inline void Info(const std::string &output)
+		{
+			Lumen::Core::liblmConsole_LogInfo(m_context, output.c_str());
+		}
+		inline void Warn(const std::string &output)
+		{
+			Lumen::Core::liblmConsole_LogWarn(m_context, output.c_str());
+		}
+		inline void Error(const std::string &output)
+		{
+			Lumen::Core::liblmConsole_LogError(m_context, output.c_str());
+		}
+		inline void Crit(const std::string &output)
+		{
+			Lumen::Core::liblmConsole_LogCrit(m_context, output.c_str());
+		}
 
 	private:
-		std::unique_ptr<Core::ILoggingContext> m_context;
+		Core::LoggingContext *m_context;
 	};
 }
