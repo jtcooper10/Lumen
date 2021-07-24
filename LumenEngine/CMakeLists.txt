@@ -6,6 +6,7 @@ set(INCLUDE_DIRS "Dependencies/spdlog/include")
 
 add_subdirectory(Dependencies/spdlog)
 add_subdirectory(Dependencies/glfw)
+add_subdirectory(Dependencies/glad)
 
 add_library(LumenAPI STATIC
 	"Lumen.h"
@@ -21,6 +22,7 @@ add_library(
 	"ApplicationContext.cpp")
 add_dependencies(LumenEngine
 	spdlog::spdlog
+	glad
 	glfw)
 target_compile_definitions(LumenEngine PRIVATE LUMEN_DLL_BUILD)
 target_include_directories(LumenEngine PRIVATE
@@ -28,4 +30,5 @@ target_include_directories(LumenEngine PRIVATE
 	"Dependencies/glfw/include")
 target_link_libraries(LumenEngine
 	spdlog
+	glad
 	glfw)

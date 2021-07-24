@@ -2,6 +2,8 @@
 #include "LoggingContext.h"
 #include "ApplicationContext.h"
 #include <string>
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
 
 using namespace Lumen::Core;
 
@@ -57,6 +59,12 @@ ApplicationContext *Lumen::Core::liblmApplication_Create(
 	}
 	glfwMakeContextCurrent(context_window);
 
+	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+	{
+		LoggingContext::CoreError("Failed to create OpenGL context: " + std::string(window_title));
+		return nullptr;
+	}
+
 	return new ApplicationContext(context_window);
 }
 
@@ -69,4 +77,42 @@ void Lumen::Core::liblmApplication_Destroy(ApplicationContext **context)
 int Lumen::Core::liblmApplication_Draw(ApplicationContext *context)
 {
 	return context->Draw();
+}
+
+int Lumen::Core::liblmApplication_DrawGeometry(ApplicationContext *context, Geometry *geometry)
+{
+	return context->Draw(geometry);
+}
+
+Geometry *Lumen::Core::liblmApplication_CreateGeometry(ApplicationContext *context)
+{
+	Geometry *geometry;
+	unsigned int vertex_id;
+	unsigned int index_id;
+
+	glGenBuffers(1, &vertex_id);
+	glBindBuffer(GL_ARRAY_BUFFER, vertex_id);
+
+	glGenBuffers(1, &index_id);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_id);
+
+	geometry = new Geometry {
+		{ -0.5f, -0.5f, 0.0f,
+		  -0.5f,  0.5f, 0.0f,
+		   0.5f,  0.5f, 0.0f,
+		   0.5f, -0.5f, 0.0f },
+		{ 0, 1, 2, 0, 2, 3 }
+	};
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * 12, &geometry->data, GL_STATIC_DRAW);
+	glEnableVertexAttribArray(0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, nullptr);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(float) * 6, &geometry->index, GL_STATIC_DRAW);
+
+	return geometry;
+}
+
+void Lumen::Core::liblmApplication_DestroyGeometry(ApplicationContext *context, Geometry **geometry)
+{
+	delete *geometry;
+	*geometry = nullptr;
 }

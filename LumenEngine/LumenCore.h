@@ -27,6 +27,14 @@ namespace Lumen
 
 
 		class ApplicationContext;
+		struct Geometry;
+
+		struct Position
+		{
+			const float x;
+			const float y;
+			const float z;
+		};
 
 		extern "C"
 		{
@@ -36,6 +44,13 @@ namespace Lumen
 				const char *window_title);
 			void LUMEN_API liblmApplication_Destroy(ApplicationContext **context);
 			int LUMEN_API liblmApplication_Draw(ApplicationContext *context);
+
+			Geometry LUMEN_API *liblmApplication_CreateGeometry(ApplicationContext *context);
+			void LUMEN_API liblmApplication_DestroyGeometry(ApplicationContext *context, Geometry **geometry);
+			int LUMEN_API liblmApplication_DrawGeometry(ApplicationContext *context, Geometry *geometry);
+
+			//void LUMEN_API liblmGeometry_SetPosition(Geometry *geometry, Position position);
+			//void LUMEN_API liblmGeometry_SetSize(Geometry *geometry, unsigned int width, unsigned int height);
 		}
 	}
 }
